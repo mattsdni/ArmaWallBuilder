@@ -86,21 +86,21 @@
             // 
             // preview_text
             // 
+            this.preview_text.AllowDrop = true;
             this.preview_text.Location = new System.Drawing.Point(249, 30);
             this.preview_text.Multiline = true;
             this.preview_text.Name = "preview_text";
             this.preview_text.Size = new System.Drawing.Size(198, 208);
             this.preview_text.TabIndex = 4;
-            this.preview_text.Text = " {\r\n  items=220;\r\n  class Item0\r\n  {\r\n   position[]={145,5,0};\r\n   azimut=90;\r\n  " +
-    " offsetY=x;\r\n   id=0;\r\n   side=\"EMPTY\";\r\n   vehicle=\"Land_CncWall4_F\";\r\n   skill" +
-    "=1;\r\n   };";
+            this.preview_text.TabStop = false;
             // 
             // posX_text
             // 
             this.posX_text.Location = new System.Drawing.Point(12, 73);
             this.posX_text.Name = "posX_text";
             this.posX_text.Size = new System.Drawing.Size(78, 20);
-            this.posX_text.TabIndex = 5;
+            this.posX_text.TabIndex = 2;
+            this.posX_text.TextChanged += new System.EventHandler(this.posX_text_TextChanged);
             // 
             // label3
             // 
@@ -116,7 +116,8 @@
             this.posZ_text.Location = new System.Drawing.Point(12, 99);
             this.posZ_text.Name = "posZ_text";
             this.posZ_text.Size = new System.Drawing.Size(78, 20);
-            this.posZ_text.TabIndex = 8;
+            this.posZ_text.TabIndex = 4;
+            this.posZ_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
             // label5
             // 
@@ -150,7 +151,8 @@
             this.azimut_text.Location = new System.Drawing.Point(12, 170);
             this.azimut_text.Name = "azimut_text";
             this.azimut_text.Size = new System.Drawing.Size(100, 20);
-            this.azimut_text.TabIndex = 13;
+            this.azimut_text.TabIndex = 8;
+            this.azimut_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
             // label8
             // 
@@ -166,14 +168,16 @@
             this.incX_text.Location = new System.Drawing.Point(129, 73);
             this.incX_text.Name = "incX_text";
             this.incX_text.Size = new System.Drawing.Size(78, 20);
-            this.incX_text.TabIndex = 15;
+            this.incX_text.TabIndex = 3;
+            this.incX_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
             // incZ_text
             // 
             this.incZ_text.Location = new System.Drawing.Point(129, 99);
             this.incZ_text.Name = "incZ_text";
             this.incZ_text.Size = new System.Drawing.Size(78, 20);
-            this.incZ_text.TabIndex = 17;
+            this.incZ_text.TabIndex = 5;
+            this.incZ_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
             // label4
             // 
@@ -189,21 +193,24 @@
             this.posY_text.Location = new System.Drawing.Point(12, 125);
             this.posY_text.Name = "posY_text";
             this.posY_text.Size = new System.Drawing.Size(75, 20);
-            this.posY_text.TabIndex = 21;
+            this.posY_text.TabIndex = 6;
+            this.posY_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
             // incY_text
             // 
             this.incY_text.Location = new System.Drawing.Point(129, 125);
             this.incY_text.Name = "incY_text";
             this.incY_text.Size = new System.Drawing.Size(78, 20);
-            this.incY_text.TabIndex = 22;
+            this.incY_text.TabIndex = 7;
+            this.incY_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
             // azInc_text
             // 
             this.azInc_text.Location = new System.Drawing.Point(129, 170);
             this.azInc_text.Name = "azInc_text";
             this.azInc_text.Size = new System.Drawing.Size(78, 20);
-            this.azInc_text.TabIndex = 23;
+            this.azInc_text.TabIndex = 9;
+            this.azInc_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
             // label10
             // 
@@ -219,7 +226,8 @@
             this.numBlocks_text.Location = new System.Drawing.Point(12, 209);
             this.numBlocks_text.Name = "numBlocks_text";
             this.numBlocks_text.Size = new System.Drawing.Size(100, 20);
-            this.numBlocks_text.TabIndex = 26;
+            this.numBlocks_text.TabIndex = 10;
+            this.numBlocks_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
             // itemName_text
             // 
@@ -227,7 +235,8 @@
             this.itemName_text.Location = new System.Drawing.Point(12, 30);
             this.itemName_text.Name = "itemName_text";
             this.itemName_text.Size = new System.Drawing.Size(195, 21);
-            this.itemName_text.TabIndex = 27;
+            this.itemName_text.TabIndex = 1;
+            this.itemName_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
             // label9
             // 
@@ -243,12 +252,14 @@
             this.fileName_text.Location = new System.Drawing.Point(12, 253);
             this.fileName_text.Name = "fileName_text";
             this.fileName_text.Size = new System.Drawing.Size(195, 20);
-            this.fileName_text.TabIndex = 29;
+            this.fileName_text.TabIndex = 11;
+            this.fileName_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(470, 360);
             this.Controls.Add(this.fileName_text);
             this.Controls.Add(this.label9);

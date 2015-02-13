@@ -8,17 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace ArmaWallBuilderGui
 {
     public partial class Form1 : Form
     {
+        decimal l = 0;
+
         public Form1()
         {
             InitializeComponent();
+            //this.AddHandler(TextBox.TextChangedEvent, new TextChangedEventHandler(TextChanged));
         }
+
         String outCode = "";
         String itemName = "";
-        String fileName = "wall.sqm";
+        String fileName = "wall";
         double positionX = 0, positionY = 0, positionZ = 0;
         double incX = 0, incY = 0, incZ = 0;
         double azimut = 0, azInc = 0;
@@ -26,39 +31,47 @@ namespace ArmaWallBuilderGui
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+         
         }
+
+        private void richTextBox1_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.Text))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //TODO: Add error checking to these inputs
-            //parse fields into variables
+            outCode = "";
             itemName = this.itemName_text.Text;
-            if (!String.IsNullOrEmpty(this.posX_text.Text))
+            if (!String.IsNullOrEmpty(this.posX_text.Text) && decimal.TryParse(posX_text.Text, out l))
                 positionX = Convert.ToDouble(this.posX_text.Text);
 
-            if (!String.IsNullOrEmpty(this.posY_text.Text))
+            if (!String.IsNullOrEmpty(this.posY_text.Text) && decimal.TryParse(posY_text.Text, out l))
                 positionY = Convert.ToDouble(this.posY_text.Text);
 
-            if (!String.IsNullOrEmpty(this.posZ_text.Text))
+            if (!String.IsNullOrEmpty(this.posZ_text.Text) && decimal.TryParse(posZ_text.Text, out l))
                 positionZ = Convert.ToDouble(this.posZ_text.Text);
 
-            if (!String.IsNullOrEmpty(this.incX_text.Text))
+            if (!String.IsNullOrEmpty(this.incX_text.Text) && decimal.TryParse(incX_text.Text, out l))
                 incX = Convert.ToDouble(this.incX_text.Text);
 
-            if (!String.IsNullOrEmpty(this.incY_text.Text))
+            if (!String.IsNullOrEmpty(this.incY_text.Text) && decimal.TryParse(incY_text.Text, out l))
                 incY = Convert.ToDouble(this.incY_text.Text);
 
-            if (!String.IsNullOrEmpty(this.incZ_text.Text))
+            if (!String.IsNullOrEmpty(this.incZ_text.Text) && decimal.TryParse(incZ_text.Text, out l))
                 incZ = Convert.ToDouble(this.incZ_text.Text);
 
-            if (!String.IsNullOrEmpty(this.azimut_text.Text))
+            if (!String.IsNullOrEmpty(this.azimut_text.Text) && decimal.TryParse(azimut_text.Text, out l))
                 azimut = Convert.ToDouble(this.azimut_text.Text);
 
-            if (!String.IsNullOrEmpty(this.azInc_text.Text))
+            if (!String.IsNullOrEmpty(this.azInc_text.Text) && decimal.TryParse(azInc_text.Text, out l))
                 azInc = Convert.ToDouble(this.azInc_text.Text);
 
-            if (!String.IsNullOrEmpty(this.numBlocks_text.Text))
+            if (!String.IsNullOrEmpty(this.numBlocks_text.Text) && decimal.TryParse(numBlocks_text.Text, out l))
                 numBlocks = Convert.ToInt32(this.numBlocks_text.Text);
 
             if (!String.IsNullOrEmpty(this.fileName_text.Text))
@@ -88,28 +101,75 @@ namespace ArmaWallBuilderGui
             //output sqm file
             System.IO.File.WriteAllText(@Application.StartupPath + "\\" + fileName + ".sqm", outCode);
         }
-    }
 
-    /*class Vehicles
- {
-  items=220;
-  class Item0
-  {
-   position[]={145,5,0};
-   azimut=90;
-   id=0;
-   side="EMPTY";
-   vehicle="Land_CncWall4_F";
-   skill=1;
-   };
-   
-so, "items=220" is the number of blocks. It's only written once at the top. equals the highest id=x+1
-from "class Item0" to the end is what repeats
-So there's "class Itemx" where x increases by 1 each time
-then "position[]={a,5,0}; where a increases by 5
-"id=x" Where x is the same variable used for "class itemx"
-get a string for vehicle="Land_CncWall4_F";
-     * 
-     * what would be nice is to input the value for x and z into fields, and be able to have check boxes by them to either stay constant, or to change in a specified increment (positive or negative)
-*/
+        private void posX_text_TextChanged(object sender, EventArgs e)
+        {
+            updatePreview();
+        }
+
+        private void itemName_text_TextChanged(object sender, EventArgs e)
+        {
+            updatePreview();
+        }
+
+
+
+        private void updatePreview()
+        {
+            preview_text.Text = String.Empty;
+            outCode = "";
+            itemName = this.itemName_text.Text;
+            if (!String.IsNullOrEmpty(this.posX_text.Text) && decimal.TryParse(posX_text.Text, out l))
+                positionX = Convert.ToDouble(this.posX_text.Text);
+
+            if (!String.IsNullOrEmpty(this.posY_text.Text) && decimal.TryParse(posY_text.Text, out l))
+                positionY = Convert.ToDouble(this.posY_text.Text);
+
+            if (!String.IsNullOrEmpty(this.posZ_text.Text) && decimal.TryParse(posZ_text.Text, out l))
+                positionZ = Convert.ToDouble(this.posZ_text.Text);
+
+            if (!String.IsNullOrEmpty(this.incX_text.Text) && decimal.TryParse(incX_text.Text, out l))
+                incX = Convert.ToDouble(this.incX_text.Text);
+
+            if (!String.IsNullOrEmpty(this.incY_text.Text) && decimal.TryParse(incY_text.Text, out l))
+                incY = Convert.ToDouble(this.incY_text.Text);
+
+            if (!String.IsNullOrEmpty(this.incZ_text.Text) && decimal.TryParse(incZ_text.Text, out l))
+                incZ = Convert.ToDouble(this.incZ_text.Text);
+
+            if (!String.IsNullOrEmpty(this.azimut_text.Text) && decimal.TryParse(azimut_text.Text, out l))
+                azimut = Convert.ToDouble(this.azimut_text.Text);
+
+            if (!String.IsNullOrEmpty(this.azInc_text.Text) && decimal.TryParse(azInc_text.Text, out l))
+                azInc = Convert.ToDouble(this.azInc_text.Text);
+
+            if (!String.IsNullOrEmpty(this.numBlocks_text.Text) && decimal.TryParse(numBlocks_text.Text, out l))
+                numBlocks = Convert.ToInt32(this.numBlocks_text.Text);
+
+            if (!String.IsNullOrEmpty(this.fileName_text.Text))
+                fileName = this.fileName_text.Text;
+
+            //generate code for wall
+            outCode += "  class Vehicles\r\r\n";
+            outCode += "  {\r\n";   //{ newline
+            outCode += "    ";    //tab
+            outCode += "items=" + numBlocks + ";\r\n"; //items=220;
+
+            outCode += "    class 0tem" + 0 + "\r\n";
+            outCode += "    {\r\n";
+            outCode += "      position[]={" + (positionX) + "," + 5 + "," + positionZ + "};\r\n";
+            outCode += "      azimut=" + (azimut) + ";\r\n";
+            outCode += "      offsetY=" + (positionY) + ";\r\n";
+            outCode += "      id=" + 0 + ";\r\n";
+            outCode += "      side=\"EMPTY\";\r\n";
+            outCode += "      vehicle=\"" + itemName + "\";\r\n";
+            outCode += "      skill=1;\r\n";
+            outCode += "    };\r\n";
+
+            outCode += "  }";
+
+            this.preview_text.Text = outCode;
+        }
+
+    }
 }
