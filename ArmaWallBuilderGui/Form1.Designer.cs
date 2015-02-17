@@ -52,13 +52,21 @@
             this.itemName_text = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.fileName_text = new System.Windows.Forms.TextBox();
+            this.normal_r = new System.Windows.Forms.RadioButton();
+            this.snowflake_r = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.addTo_box = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button1.Location = new System.Drawing.Point(320, 296);
+            this.button1.Location = new System.Drawing.Point(320, 357);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(127, 43);
             this.button1.TabIndex = 0;
@@ -255,12 +263,82 @@
             this.fileName_text.TabIndex = 11;
             this.fileName_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
+            // normal_r
+            // 
+            this.normal_r.AutoSize = true;
+            this.normal_r.Location = new System.Drawing.Point(6, 20);
+            this.normal_r.Name = "normal_r";
+            this.normal_r.Size = new System.Drawing.Size(76, 17);
+            this.normal_r.TabIndex = 29;
+            this.normal_r.TabStop = true;
+            this.normal_r.Text = "Wall Mode";
+            this.normal_r.UseVisualStyleBackColor = true;
+            this.normal_r.CheckedChanged += new System.EventHandler(this.normal_r_CheckedChanged);
+            // 
+            // snowflake_r
+            // 
+            this.snowflake_r.AutoSize = true;
+            this.snowflake_r.Location = new System.Drawing.Point(6, 43);
+            this.snowflake_r.Name = "snowflake_r";
+            this.snowflake_r.Size = new System.Drawing.Size(105, 17);
+            this.snowflake_r.TabIndex = 30;
+            this.snowflake_r.TabStop = true;
+            this.snowflake_r.Text = "Snowflake Mode";
+            this.snowflake_r.UseVisualStyleBackColor = true;
+            this.snowflake_r.CheckedChanged += new System.EventHandler(this.snowflake_r_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.normal_r);
+            this.groupBox1.Controls.Add(this.snowflake_r);
+            this.groupBox1.Location = new System.Drawing.Point(15, 279);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(123, 72);
+            this.groupBox1.TabIndex = 31;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Generation Mode";
+            // 
+            // addTo_box
+            // 
+            this.addTo_box.AutoSize = true;
+            this.addTo_box.Location = new System.Drawing.Point(15, 357);
+            this.addTo_box.Name = "addTo_box";
+            this.addTo_box.Size = new System.Drawing.Size(128, 17);
+            this.addTo_box.TabIndex = 32;
+            this.addTo_box.Text = "Add to current misson";
+            this.addTo_box.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(12, 380);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 33;
+            this.button2.Text = "Browse...";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(99, 380);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(108, 20);
+            this.textBox1.TabIndex = 34;
+            // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(470, 360);
+            this.ClientSize = new System.Drawing.Size(470, 412);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.addTo_box);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.fileName_text);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.itemName_text);
@@ -289,6 +367,8 @@
             this.Name = "Form1";
             this.Text = "Arma Wall Builder";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,6 +399,13 @@
         private System.Windows.Forms.ComboBox itemName_text;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox fileName_text;
+        private System.Windows.Forms.RadioButton normal_r;
+        private System.Windows.Forms.RadioButton snowflake_r;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox addTo_box;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
     }
 }
 
