@@ -56,9 +56,10 @@
             this.snowflake_r = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.addTo_box = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.loadMission_b = new System.Windows.Forms.Button();
+            this.fileLoad_text = new System.Windows.Forms.TextBox();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +67,7 @@
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button1.Location = new System.Drawing.Point(320, 357);
+            this.button1.Location = new System.Drawing.Point(331, 355);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(127, 43);
             this.button1.TabIndex = 0;
@@ -249,17 +250,17 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 237);
+            this.label9.Location = new System.Drawing.Point(328, 312);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(54, 13);
+            this.label9.Size = new System.Drawing.Size(79, 13);
             this.label9.TabIndex = 28;
-            this.label9.Text = "File Name";
+            this.label9.Text = "New File Name";
             // 
             // fileName_text
             // 
-            this.fileName_text.Location = new System.Drawing.Point(12, 253);
+            this.fileName_text.Location = new System.Drawing.Point(331, 328);
             this.fileName_text.Name = "fileName_text";
-            this.fileName_text.Size = new System.Drawing.Size(195, 20);
+            this.fileName_text.Size = new System.Drawing.Size(127, 20);
             this.fileName_text.TabIndex = 11;
             this.fileName_text.TextChanged += new System.EventHandler(this.itemName_text_TextChanged);
             // 
@@ -291,7 +292,7 @@
             // 
             this.groupBox1.Controls.Add(this.normal_r);
             this.groupBox1.Controls.Add(this.snowflake_r);
-            this.groupBox1.Location = new System.Drawing.Point(15, 279);
+            this.groupBox1.Location = new System.Drawing.Point(12, 269);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(123, 72);
             this.groupBox1.TabIndex = 31;
@@ -301,42 +302,52 @@
             // addTo_box
             // 
             this.addTo_box.AutoSize = true;
-            this.addTo_box.Location = new System.Drawing.Point(15, 357);
+            this.addTo_box.Location = new System.Drawing.Point(15, 347);
             this.addTo_box.Name = "addTo_box";
             this.addTo_box.Size = new System.Drawing.Size(128, 17);
             this.addTo_box.TabIndex = 32;
             this.addTo_box.Text = "Add to current misson";
             this.addTo_box.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // loadMission_b
             // 
-            this.button2.Location = new System.Drawing.Point(12, 380);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 33;
-            this.button2.Text = "Browse...";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.loadMission_b.Location = new System.Drawing.Point(12, 370);
+            this.loadMission_b.Name = "loadMission_b";
+            this.loadMission_b.Size = new System.Drawing.Size(75, 23);
+            this.loadMission_b.TabIndex = 33;
+            this.loadMission_b.Text = "Browse...";
+            this.loadMission_b.UseVisualStyleBackColor = true;
+            this.loadMission_b.Click += new System.EventHandler(this.button2_Click);
             // 
-            // textBox1
+            // fileLoad_text
             // 
-            this.textBox1.Location = new System.Drawing.Point(99, 380);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(108, 20);
-            this.textBox1.TabIndex = 34;
+            this.fileLoad_text.Location = new System.Drawing.Point(93, 370);
+            this.fileLoad_text.Name = "fileLoad_text";
+            this.fileLoad_text.ReadOnly = true;
+            this.fileLoad_text.Size = new System.Drawing.Size(195, 20);
+            this.fileLoad_text.TabIndex = 34;
             // 
             // openFileDialog2
             // 
             this.openFileDialog2.FileName = "openFileDialog1";
+            // 
+            // label11
+            // 
+            this.label11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label11.Location = new System.Drawing.Point(-2, 255);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(473, 2);
+            this.label11.TabIndex = 35;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(470, 412);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
+            this.ClientSize = new System.Drawing.Size(470, 410);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.fileLoad_text);
+            this.Controls.Add(this.loadMission_b);
             this.Controls.Add(this.addTo_box);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.fileName_text);
@@ -403,9 +414,10 @@
         private System.Windows.Forms.RadioButton snowflake_r;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox addTo_box;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button loadMission_b;
+        private System.Windows.Forms.TextBox fileLoad_text;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.Label label11;
     }
 }
 

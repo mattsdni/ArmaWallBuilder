@@ -29,6 +29,12 @@ namespace ArmaWallBuilderGui
         double azimut = 0, azInc = 0;
         int numBlocks = 0;
         string mission = "";
+        int index = 0;
+        int id;
+        int item;
+        int items;
+        String originalCodePartOne = "", originalCodePartTwo = "";
+        string[] words;
 
         public Form1()
         {
@@ -40,80 +46,7 @@ namespace ArmaWallBuilderGui
             
         }
 
-        public void setFileStart()
-        {
-            //TODO: change ALL THESE for loops to while loops because the derp
-            string[] words = mission.Split('\n');
-            int index = 0;
-            int id;
-            int item, items;
-            for (int i = 0; i < words.Length; i++)
-            {
-                if (words[i].Equals("\tclass Vehicles\r"))
-                {
-                    //we sure done musta got done founded it
-                    Console.WriteLine(words[i]);
-                    index = i;
-                }
-            }
-            //go down 2
-            index += 2;
-            //get number (items=???)
-            string resultString = null;
-            try 
-            {
-                Regex regexObj = new Regex(@"[^\d]");
-                resultString = regexObj.Replace(words[index], "");
-            } 
-            catch (ArgumentException ex) 
-            {
-                // Syntax error in the regular expression
-            }
-            items = Convert.ToInt32(resultString);
-            
-            //search for last Item (Item-1) eg Item6 (keep track of scope with { } math
-            for (int i = index; i < words.Length; i++)
-            {
-                if (words[i].Equals("\t\tclass Item" + (items-1) + "\r"))
-                {
-                    index = i;
-                }
-            }
-            //search for next instance of id=
-            for (int i = index; i < words.Length; i++)
-            {
-                if (words[i].Contains("\t\t\tid="))
-                {
-                    index = i;
-                }
-            }
-            //remove everything but numbers
-            try
-            {
-                Regex regexObj = new Regex(@"[^\d]");
-                resultString = regexObj.Replace(words[index], "");
-            }
-            catch (ArgumentException ex)
-            {
-                // Syntax error in the regular expression
-            }
-            //remember id number
-            id = Convert.ToInt32(resultString);
-            //look for next };
-            for (int i = index; i < words.Length; i++)
-            {
-                if (words[i].Contains("};"))
-                {
-                    index = i;
-                }
-            }
-
-            //add one to id and Item
-            id++;
-            item = items;
-            
-
-        }
+        
         private void button1_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(this.itemName_text.Text))
@@ -129,7 +62,7 @@ namespace ArmaWallBuilderGui
         private void generate()
         {
             //make a wall
-            if (mode == 0)
+            if (normal_r.Checked)
             {
                 outCode = "";
                 itemName = this.itemName_text.Text;
@@ -168,7 +101,7 @@ namespace ArmaWallBuilderGui
                 outCode += "\t{\n";   //{ newline
                 outCode += "\t\t";    //tab
                 outCode += "items=" + numBlocks + ";\n"; //items=220;
-                for (int i = 0; i < numBlocks; i++)
+                for (int i = index; i < numBlocks+index; i++)
                 {
                     outCode += "\t\tclass Item" + i + "\n";
                     outCode += "\t\t{\n";
@@ -185,9 +118,14 @@ namespace ArmaWallBuilderGui
 
                 this.preview_text.Text = outCode;
                 //output sqm file
-                System.IO.File.WriteAllText(@Application.StartupPath + "\\" + fileName + ".sqm", outCode);
+                if (addTo_box.Checked)
+                    System.IO.File.WriteAllText(@Application.StartupPath + "\\" + fileName + ".sqm", originalCodePartOne + outCode + originalCodePartTwo);
+                else
+                    System.IO.File.WriteAllText(@Application.StartupPath + "\\" + fileName + ".sqm", outCode);
             }
-            if (mode == 1)
+
+            //make a snowflake
+            if (snowflake_r.Checked)
             {
                 if (!String.IsNullOrEmpty(this.itemName_text.Text))
                     itemName = this.itemName_text.Text;
@@ -289,17 +227,10 @@ namespace ArmaWallBuilderGui
             }
         }
 
-        private void posX_text_TextChanged(object sender, EventArgs e)
+        private void generate(int i)
         {
-            updatePreview();
+
         }
-
-        private void itemName_text_TextChanged(object sender, EventArgs e)
-        {
-            updatePreview();
-        }
-
-
 
         private void updatePreview()
         {
@@ -358,9 +289,42 @@ namespace ArmaWallBuilderGui
             //this.preview_text.Text = outCode;
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // Displays an OpenFileDialog so the user can select a Cursor.
+            OpenFileDialog openFileDialog2 = new OpenFileDialog();
+            openFileDialog2.Filter = "Mission files|*.sqm|All Files (*.*)|*.*";
+            openFileDialog2.Title = "Select a Mission File";
+
+            // Show the Dialog.
+            // If the user clicked OK in the dialog open it.
+            if (openFileDialog2.ShowDialog() == DialogResult.OK)
+            {
+                // Open the selected file to read.
+                System.IO.StreamReader myFile = new System.IO.StreamReader(openFileDialog2.FileName);
+
+                // Read the file into a string
+                mission = myFile.ReadToEnd();
+                setFileStart();
+                splitMission();
+                fileLoad_text.Text = "Successfully loaded: " + System.IO.Path.GetFileName(openFileDialog2.FileName);
+                myFile.Close();
+            }
+        }
+
+        
+        private void posX_text_TextChanged(object sender, EventArgs e)
+        {
+            updatePreview();
+        }
+
+        private void itemName_text_TextChanged(object sender, EventArgs e)
+        {
+            updatePreview();
+        }
+
         private void normal_r_CheckedChanged(object sender, EventArgs e)
         {
-            mode = 0;
             numBlocks_text.ReadOnly = false;
             incX_text.ReadOnly = false;
             incY_text.ReadOnly = false;
@@ -373,7 +337,6 @@ namespace ArmaWallBuilderGui
 
         private void snowflake_r_CheckedChanged(object sender, EventArgs e)
         {
-            mode = 1;
             //numn blokcs, azimut
             numBlocks_text.ReadOnly = true;
             incX_text.ReadOnly = true;
@@ -384,31 +347,112 @@ namespace ArmaWallBuilderGui
             azimut_text.ReadOnly = true;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        public void setFileStart()
         {
-                // Displays an OpenFileDialog so the user can select a Cursor.
-                OpenFileDialog openFileDialog2 = new OpenFileDialog();
-                openFileDialog2.Filter = "Mission files|*.sqm";
-                openFileDialog2.Title = "Select a Mission File";
+            //TODO: change ALL THESE for loops to while loops because the derp
+            words = mission.Split('\n');
+           
+            while (!(words[index].Equals("\tclass Vehicles\r")))
+            {
+                index++;
+            }
+            //for (int i = 0; i < words.Length; i++)
+            //{
+            //    if (words[i].Equals("\tclass Vehicles\r"))
+            //    {
+            //        //we sure done musta got done founded it
+            //        Console.WriteLine(words[i]);
+            //        index = i;
+            //    }
+            //}
 
-                // Show the Dialog.
-                // If the user clicked OK in the dialog and
-                // a .CUR file was selected, open it.
-                if (openFileDialog2.ShowDialog() == DialogResult.OK)
-                {
-                    // Open the selected file to read.
-                   // System.IO.Stream fileStream = openFileDialog2.FileName;
-                    System.IO.StreamReader myFile = new System.IO.StreamReader(openFileDialog2.FileName);
+            //go down 2
+            index += 2;
 
-                    //using (System.IO.StreamReader reader = new System.IO.StreamReader(fileStream))
-                    //{
-                        // Read the first line from the file and write it the textbox.
-                    mission = myFile.ReadToEnd();
+            //get number (items=???)
+            string resultString = null;
+            try
+            {
+                Regex regexObj = new Regex(@"[^\d]");
+                resultString = regexObj.Replace(words[index], "");
+            }
+            catch (ArgumentException ex)
+            {
+                // Syntax error in the regular expression
+            }
+            items = Convert.ToInt32(resultString);
 
-                    setFileStart();
-                    //}
-                    myFile.Close();
-                }
+            //search for last Item (Item-1) eg Item6 (keep track of scope with { } math
+            while (!(words[index].Equals("\t\tclass Item" + (items - 1) + "\r")))
+            {
+                index++;
+            }
+            //for (int i = index; i < words.Length; i++)
+            //{
+            //    if (words[i].Equals("\t\tclass Item" + (items-1) + "\r"))
+            //    {
+            //        index = i;
+            //    }
+            //}
+
+            //search for next instance of id=
+            while (!(words[index].Contains("\t\t\tid=")))
+            {
+                index++;
+            }
+            //for (int i = index; i < words.Length; i++)
+            //{
+            //    if (words[i].Contains("\t\t\tid="))
+            //    {
+            //        index = i;
+            //    }
+            //}
+
+            //remove everything but numbers
+            try
+            {
+                Regex regexObj = new Regex(@"[^\d]");
+                resultString = regexObj.Replace(words[index], "");
+            }
+            catch (ArgumentException ex)
+            {
+                // Syntax error in the regular expression
+            }
+            //remember id number
+            id = Convert.ToInt32(resultString);
+
+            //look for next };
+            while (!(words[index].Contains("};")))
+            {
+                index++;
+            }
+            //for (int i = index; i < words.Length; i++)
+            //{
+            //    if (words[i].Contains("};"))
+            //    {
+            //        index = i;
+            //    }
+            //}
+
+            //add one to id and Item
+            id++;
+            item = items;
         }
+
+        public void splitMission()
+        {
+            int i;
+            for (i = 0; i <= index; i++)
+            {
+                originalCodePartOne += words[i];
+            }
+            for (int j = i; j < words.Length; j++)
+            {
+                originalCodePartTwo += words[j];
+            }
+
+        }
+
+
     }
 }
